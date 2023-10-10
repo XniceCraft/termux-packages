@@ -12,6 +12,9 @@ termux_step_setup_toolchain() {
 		elif [ "${TERMUX_NDK_VERSION}" = 23c ]; then
 			TERMUX_STANDALONE_TOOLCHAIN+="-v5"
 			termux_setup_toolchain_23c
+		elif [ "${TERMUX_NDK_VERSION}" = 21e ]; then
+			TERMUX_STANDALONE_TOOLCHAIN+="-v1"
+			termux_setup_toolchain_21e
 		else
 			termux_error_exit "We do not have a setup_toolchain function for NDK version $TERMUX_NDK_VERSION"
 		fi
