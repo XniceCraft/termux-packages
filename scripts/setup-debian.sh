@@ -68,12 +68,13 @@ PACKAGES+=" xmltoman"
 # Needed by python modules (e.g. asciinema) and some build systems.
 PACKAGES+=" python3.9"
 PACKAGES+=" python3.10"
-PACKAGES+=" python3.11"
+#PACKAGES+=" python3.11"
 PACKAGES+=" python3-pip"
 PACKAGES+=" python3-setuptools"
 PACKAGES+=" python-wheel-common"
-PACKAGES+=" python3.10-venv"
-PACKAGES+=" python3.11-venv"
+#PACKAGES+=" python3.10-venv"
+#PACKAGES+=" python3.11-venv"
+PACKAGES+=" python3.9-venv"
 
 << 'COMMENTS'
 # Needed by package bc.
@@ -290,7 +291,7 @@ PACKAGES+=" openjdk-17-jre openjdk-17-jdk"
 
 # Required by qt5-qtwebengine
 PACKAGES+=" libnss3 libnss3:i386 libnss3-dev"
-PACKAGES+=" libwebp7 libwebp7:i386 libwebp-dev"
+PACKAGES+=" libwebp6 libwebp6:i386 libwebp-dev"
 PACKAGES+=" libwebpdemux2 libwebpdemux2:i386"
 PACKAGES+=" libwebpmux3 libwebpmux3:i386"
 
