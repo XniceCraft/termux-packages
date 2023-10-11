@@ -172,7 +172,7 @@ termux_setup_toolchain_21e() {
 			$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang.no-16-porting
 		cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang.no-16-porting \
 			$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang.16-porting
-		sed -i 's/"\$@"/--start-no-unused-arguments -Werror=implicit-function-declaration -Werror=implicit-int -Werror=int-conversion -Werror=incompatible-function-pointer-types --end-no-unused-arguments \0/g' \
+		sed -i 's/"\$@"/ -Werror=implicit-function-declaration -Werror=implicit-int -Werror=int-conversion -Werror=incompatible-function-pointer-types \0/g' \
 			$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang.16-porting
 		if [ "$TERMUX_PKG_ENABLE_CLANG16_PORTING" = "true" ]; then
 			cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang.16-porting \
