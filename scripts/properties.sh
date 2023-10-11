@@ -3,14 +3,15 @@
 # coreutils and are clearly not a default part of most Linux installations,
 # or sourcing any other script in our build directories.
 
+: "${TERMUX_SCRIPTDIR:=$(realpath "..")}"
 TERMUX_SDK_REVISION=9123335
 TERMUX_ANDROID_BUILD_TOOLS_VERSION=33.0.1
 # when changing the above:
 # change TERMUX_PKG_VERSION (and remove TERMUX_PKG_REVISION if necessary) in:
 #   apksigner, d8
 # and trigger rebuild of them
-: "${TERMUX_NDK_VERSION_NUM:="25"}"
-: "${TERMUX_NDK_REVISION:="c"}"
+: "${TERMUX_NDK_VERSION_NUM:="21"}"
+: "${TERMUX_NDK_REVISION:="e"}"
 TERMUX_NDK_VERSION=$TERMUX_NDK_VERSION_NUM$TERMUX_NDK_REVISION
 # when changing the above:
 # update version and hashsum in packages
