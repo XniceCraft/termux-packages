@@ -1,4 +1,4 @@
-termux_setup_toolchain_23c() {
+termux_setup_toolchain_21e() {
 	export CFLAGS=""
 	export CPPFLAGS=""
 	export LDFLAGS="-L${TERMUX_PREFIX}/lib"

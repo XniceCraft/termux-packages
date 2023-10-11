@@ -236,6 +236,10 @@ source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_25c.sh"
 # shellcheck source=scripts/build/toolchain/termux_setup_toolchain_23c.sh
 source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_23c.sh"
 
+# Setup a standalone Android NDK 21e toolchain. Called from termux_step_setup_toolchain.
+# shellcheck source=scripts/build/toolchain/termux_setup_toolchain_21e.sh
+source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_21e.sh"
+
 # Setup a standalone Glibc GNU toolchain. Called from termux_step_setup_toolchain.
 # shellcheck source=scripts/build/toolchain/termux_setup_toolchain_gnu.sh
 source "$TERMUX_SCRIPTDIR/scripts/build/toolchain/termux_setup_toolchain_gnu.sh"
