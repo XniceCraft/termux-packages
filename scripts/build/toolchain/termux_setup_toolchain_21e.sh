@@ -201,7 +201,7 @@ termux_setup_toolchain_21e() {
 		echo "Applying ndk-patch: $(basename $f)"
 		sed "s%\@TERMUX_PREFIX\@%${TERMUX_PREFIX}%g" "$f" | \
 			sed "s%\@TERMUX_HOME\@%${TERMUX_ANDROID_HOME}%g" | \
-			patch --silent -p1;
+			patch --silent -p1 -F 3;
 	done
 	# libintl.h: Inline implementation gettext functions.
 	# langinfo.h: Inline implementation of nl_langinfo().
