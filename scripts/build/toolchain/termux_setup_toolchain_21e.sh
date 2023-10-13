@@ -7,14 +7,14 @@ termux_setup_toolchain_21e() {
 	export CC=$TERMUX_HOST_PLATFORM-clang
 	export CXX=$TERMUX_HOST_PLATFORM-clang++
 	export CPP=$TERMUX_HOST_PLATFORM-cpp
-	export LD=ld.lld
-	export AR=llvm-ar
-	export OBJCOPY=llvm-objcopy
-	export OBJDUMP=llvm-objdump
-	export RANLIB=llvm-ranlib
-	export READELF=llvm-readelf
-	export STRIP=llvm-strip
-	export NM=llvm-nm
+	export LD=$TERMUX_HOST_PLATFORM-ld
+	export AR=$TERMUX_HOST_PLATFORM-ar
+	export OBJCOPY=$TERMUX_HOST_PLATFORM-objcopy
+	export OBJDUMP=$TERMUX_HOST_PLATFORM-objdump
+	export RANLIB=$TERMUX_HOST_PLATFORM-ranlib
+	export READELF=$TERMUX_HOST_PLATFORM-readelf
+	export STRIP=$TERMUX_HOST_PLATFORM-strip
+	export NM=$TERMUX_HOST_PLATFORM-nm
 
 	export TERMUX_HASKELL_OPTIMISATION="-O"
 	if [ "${TERMUX_DEBUG_BUILD}" = true ]; then
@@ -30,7 +30,9 @@ termux_setup_toolchain_21e() {
 		if [ $TERMUX_ARCH = arm ]; then
 			CCTERMUX_HOST_PLATFORM=armv7a-linux-androideabi$TERMUX_PKG_API_LEVEL
 		fi
-		LDFLAGS+=" -Wl,-rpath=$TERMUX_PREFIX/lib"
+		if [ $TERMUX_PKG_API_LEVEL -gt 21 ]; then
+			LDFLAGS+=" -Wl,-rpath=$TERMUX_PREFIX/lib"
+		fi
 	else
 		export CC_FOR_BUILD=$CC
 		# Some build scripts use environment variable 'PKG_CONFIG', so
@@ -68,7 +70,7 @@ termux_setup_toolchain_21e() {
 	# We might also want to consider shipping libomp.so instead; since r21
 	LDFLAGS+=" -fopenmp -static-openmp"
 
-    LDFLAGS+=" -Wl,--hash-style=sysv"
+	LDFLAGS+=" -Wl,--hash-style=sysv"
 
 	# Android 7 started to support DT_RUNPATH (but not DT_RPATH).
 	LDFLAGS+=" -Wl,--enable-new-dtags"
@@ -84,7 +86,7 @@ termux_setup_toolchain_21e() {
 		CFLAGS+=" -g3 -O1"
 		CPPFLAGS+=" -D_FORTIFY_SOURCE=2 -D__USE_FORTIFY_LEVEL=2"
 	else
-		CFLAGS+=" -Oz"
+		CFLAGS+=" -O2"
 	fi
 
 	export CXXFLAGS="$CFLAGS"
@@ -114,19 +116,6 @@ termux_setup_toolchain_21e() {
 		return
 	fi
 
-	if [ -d $TERMUX_STANDALONE_TOOLCHAIN ]; then
-		for HOST_PLAT in aarch64-linux-android armv7a-linux-androideabi i686-linux-android x86_64-linux-android arm-linux-androideabi; do
-			if [ "$TERMUX_PKG_ENABLE_CLANG16_PORTING" = "true" ]; then
-				cp $TERMUX_STANDALONE_TOOLCHAIN/bin/$HOST_PLAT-clang.16-porting \
-					$TERMUX_STANDALONE_TOOLCHAIN/bin/$HOST_PLAT-clang
-			else
-				cp $TERMUX_STANDALONE_TOOLCHAIN/bin/$HOST_PLAT-clang.no-16-porting \
-					$TERMUX_STANDALONE_TOOLCHAIN/bin/$HOST_PLAT-clang
-			fi
-		done
-		return
-	fi
-
 	# Do not put toolchain in place until we are done with setup, to avoid having a half setup
 	# toolchain left in place if something goes wrong (or process is just aborted):
 	local _TERMUX_TOOLCHAIN_TMPDIR=${TERMUX_STANDALONE_TOOLCHAIN}-tmp
@@ -142,6 +131,28 @@ termux_setup_toolchain_21e() {
 
 	# Remove android-support header wrapping not needed on android-21:
 	rm -Rf $_TERMUX_TOOLCHAIN_TMPDIR/sysroot/usr/local
+
+	rm -Rf $_TERMUX_TOOLCHAIN_TMPDIR/sysroot/usr/local
+
+	# Use gold by default to work around https://github.com/android-ndk/ndk/issues/148
+	cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/aarch64-linux-android-ld.gold \
+	    $_TERMUX_TOOLCHAIN_TMPDIR/bin/aarch64-linux-android-ld
+	cp $_TERMUX_TOOLCHAIN_TMPDIR/aarch64-linux-android/bin/ld.gold \
+	    $_TERMUX_TOOLCHAIN_TMPDIR/aarch64-linux-android/bin/ld
+
+	# Linker wrapper script to add '--exclude-libs libgcc.a', see
+	# https://github.com/android-ndk/ndk/issues/379
+	# https://android-review.googlesource.com/#/c/389852/
+	local linker
+	for linker in ld ld.bfd ld.gold; do
+		local wrap_linker=$_TERMUX_TOOLCHAIN_TMPDIR/arm-linux-androideabi/bin/$linker
+		local real_linker=$_TERMUX_TOOLCHAIN_TMPDIR/arm-linux-androideabi/bin/$linker.real
+		cp $wrap_linker $real_linker
+		echo '#!/bin/bash' > $wrap_linker
+		echo -n '$(dirname $0)/' >> $wrap_linker
+		echo -n $linker.real >> $wrap_linker
+		echo ' --exclude-libs libunwind.a --exclude-libs libgcc_real.a "$@"' >> $wrap_linker
+	done
 
 	for HOST_PLAT in aarch64-linux-android armv7a-linux-androideabi i686-linux-android x86_64-linux-android; do
 		cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT$TERMUX_PKG_API_LEVEL-clang \
@@ -166,22 +177,6 @@ termux_setup_toolchain_21e() {
 		$_TERMUX_TOOLCHAIN_TMPDIR/bin/arm-linux-androideabi-clang++
 	cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/armv7a-linux-androideabi-cpp \
 		$_TERMUX_TOOLCHAIN_TMPDIR/bin/arm-linux-androideabi-cpp
-
-	for HOST_PLAT in aarch64-linux-android armv7a-linux-androideabi i686-linux-android x86_64-linux-android arm-linux-androideabi; do
-		mv $_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang \
-			$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang.no-16-porting
-		cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang.no-16-porting \
-			$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang.16-porting
-		sed -i 's/"\$@"/ -Werror=implicit-function-declaration -Werror=implicit-int -Werror=int-conversion -Werror=incompatible-function-pointer-types \0/g' \
-			$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang.16-porting
-		if [ "$TERMUX_PKG_ENABLE_CLANG16_PORTING" = "true" ]; then
-			cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang.16-porting \
-				$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang
-		else
-			cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang.no-16-porting \
-				$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang
-		fi
-	done
 
 	# Create a pkg-config wrapper. We use path to host pkg-config to
 	# avoid picking up a cross-compiled pkg-config later on.
@@ -214,22 +209,12 @@ termux_setup_toolchain_21e() {
 	# Remove <iconv.h> as it's provided by libiconv.
 	# Remove <spawn.h> as it's only for future (later than android-27).
 	# Remove <zlib.h> and <zconf.h> as we build our own zlib.
-	# Remove unicode headers provided by libicu.
-	# Remove KRH/khrplatform.h provided by mesa.
-	# Remove NDK vulkan headers.
 	rm usr/include/{sys/{capability,shm,sem},{glob,iconv,spawn,zlib,zconf},KHR/khrplatform}.h
-	rm -rf usr/include/unicode/{char16ptr,platform,ptypes,putil,stringoptions,ubidi,ubrk,uchar,uconfig,ucpmap,udisplaycontext,uenum,uldnames,ulocdata,uloc,umachine,unorm2,urename,uscript,ustring,utext,utf16,utf8,utf,utf_old,utypes,uvernum,uversion}.h
-	rm -Rf usr/include/vulkan
 
 	sed -i "s/define __ANDROID_API__ __ANDROID_API_FUTURE__/define __ANDROID_API__ $TERMUX_PKG_API_LEVEL/" \
 		usr/include/android/api-level.h
 
 	$TERMUX_ELF_CLEANER --api-level=$TERMUX_PKG_API_LEVEL usr/lib/*/*/*.so
-	for dir in usr/lib/*; do
-		# This seem to be needed when building rust
-		# packages
-		echo 'INPUT(-lunwind)' > $dir/libgcc.a
-	done
 
 	grep -lrw $_TERMUX_TOOLCHAIN_TMPDIR/sysroot/usr/include/c++/v1 -e '<version>' | xargs -n 1 sed -i 's/<version>/\"version\"/g'
 	mv $_TERMUX_TOOLCHAIN_TMPDIR $TERMUX_STANDALONE_TOOLCHAIN
