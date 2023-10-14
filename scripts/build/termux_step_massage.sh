@@ -1,4 +1,5 @@
 termux_step_massage() {
+	. $TERMUX_SCRIPTDIR/scripts/properties.sh
 	[ "$TERMUX_PKG_METAPACKAGE" = "true" ] && return
 
 	cd "$TERMUX_PKG_MASSAGEDIR/$TERMUX_PREFIX_CLASSICAL"
@@ -148,7 +149,7 @@ termux_step_massage() {
 	# Check so that package is not affected by
 	# https://github.com/android/ndk/issues/1614, or
 	# https://github.com/termux/termux-packages/issues/9944
-	if [ "$TERMUX_PACKAGE_LIBRARY" = "bionic" ] && [ -d "lib" ]; then
+	if [ "$TERMUX_PACKAGE_LIBRARY" = "bionic" ] && [ -d "lib" ] && [ $TERMUX_NDK_VERSION_NUM -gt 21 ]; then
 		SYMBOLS="$($READELF -s $($TERMUX_HOST_PLATFORM-clang -print-libgcc-file-name) | grep "FUNC    GLOBAL HIDDEN" | awk '{print $8}')"
 		SYMBOLS+=" $(echo libandroid_{sem_{open,close,unlink},shm{ctl,get,at,dt}})"
 		SYMBOLS+=" $(echo backtrace{,_symbols{,_fd}})"
