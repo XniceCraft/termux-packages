@@ -1,5 +1,6 @@
 #!/bin/bash
 
+shopt -s extglob
 set -e -u
 
 : "${TERMUX_PKG_TMPDIR:="/tmp"}"
@@ -54,7 +55,10 @@ if [ ! -d "$NDK" ]; then
 	rm -rf ndk-r${TERMUX_NDK_VERSION}.zip
 
 	# Remove unused parts
-	rm -Rf android-ndk-r$TERMUX_NDK_VERSION/sources/cxx-stl/system
+	cd android-ndk-r$TERMUX_NDK_VERSION
+	rm -r !("toolchains"|"source.properties")
+	cd toolchains
+	rm -r !("llvm")
 fi
 
 if [ -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then

@@ -116,6 +116,10 @@ termux_setup_toolchain_21e() {
 		return
 	fi
 
+	if [ -d "${TERMUX_STANDALONE_TOOLCHAIN}" ]; then
+		return 0
+	fi
+
 	# Do not put toolchain in place until we are done with setup, to avoid having a half setup
 	# toolchain left in place if something goes wrong (or process is just aborted):
 	local _TERMUX_TOOLCHAIN_TMPDIR=${TERMUX_STANDALONE_TOOLCHAIN}-tmp
@@ -130,8 +134,6 @@ termux_setup_toolchain_21e() {
 	cp $NDK/toolchains/llvm/prebuilt/linux-x86_64 $_TERMUX_TOOLCHAIN_TMPDIR -r
 
 	# Remove android-support header wrapping not needed on android-21:
-	rm -Rf $_TERMUX_TOOLCHAIN_TMPDIR/sysroot/usr/local
-
 	rm -Rf $_TERMUX_TOOLCHAIN_TMPDIR/sysroot/usr/local
 
 	# Use gold by default to work around https://github.com/android-ndk/ndk/issues/148
