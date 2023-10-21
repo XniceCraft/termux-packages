@@ -6,12 +6,9 @@ TERMUX_PKG_VERSION=1.18.0
 TERMUX_PKG_SRCURL=https://nlnetlabs.nl/downloads/unbound/unbound-${TERMUX_PKG_VERSION}.tar.gz
 TERMUX_PKG_SHA256=3da95490a85cff6420f26fae0b84a49f5112df1bf1b7fc34f8724f02082cb712
 TERMUX_PKG_DEPENDS="libevent, libnghttp2, openssl, resolv-conf"
-TERMUX_PKG_BUILD_DEPENDS="swig"
 TERMUX_PKG_BREAKS="unbound (<< 1.17.1-1)"
 TERMUX_PKG_REPLACES="unbound (<< 1.17.1-1)"
 TERMUX_PKG_BUILD_IN_SRC=true
-TERMUX_PKG_PYTHON_COMMON_DEPS="wheel"
-TERMUX_PKG_PYTHON_BUILD_DEPS="swig"
 
 # `pythonmodule` makes core lib/libunbound.so depend on python. Do not enable it.
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
@@ -26,7 +23,7 @@ ac_cv_func_getpwnam=no
 --with-libexpat=$TERMUX_PREFIX
 --without-libhiredis
 --without-libmnl
---with-pyunbound
+--without-pyunbound
 --without-pythonmodule
 --with-libnghttp2=$TERMUX_PREFIX
 --with-ssl=$TERMUX_PREFIX

@@ -5,9 +5,7 @@ TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="2:0.8.3"
 TERMUX_PKG_SRCURL=https://github.com/stevegrubb/libcap-ng/archive/v${TERMUX_PKG_VERSION:2}.tar.gz
 TERMUX_PKG_SHA256=e542e9139961f0915ab5878427890cdc7762949fbe216bd0cb4ceedb309bb854
-if [ $TERMUX_PKG_API_LEVEL -lt 24 ]; then
-	TERMUX_PKG_DEPENDS="libandroid-support"
-fi
+TERMUX_PKG_DEPENDS="libandroid-support"
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 --without-python
