@@ -1,0 +1,21 @@
+--- bash/bashline.c.orig	2023-10-22 13:49:19.160744497 +0700
++++ bash/bashline.c	2023-10-22 13:58:59.013786491 +0700
+@@ -2645,7 +2645,17 @@
+      const char *text;
+      int state;
+ {
+-#if defined (__WIN32__) || defined (__OPENNT) || !defined (HAVE_GRP_H)
++
++#ifdef __ANDROID__
++#include <android/api-level.h>
++
++#if __ANDROID_API__ < 26
++#define __ANDROID_DISABLE_GETGRENT__ 1
++#endif
++
++#endif
++
++#if defined (__WIN32__) || defined (__OPENNT) || !defined (HAVE_GRP_H) || defined (__ANDROID_DISABLE_GETGRENT__)
+   return ((char *)NULL);
+ #else
+   static char *gname = (char *)NULL;
