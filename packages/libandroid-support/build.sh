@@ -8,7 +8,7 @@ TERMUX_PKG_LICENSE_FILE="LICENSE.txt, wcwidth-${TERMUX_PKG_VERSION[1]}/LICENSE.t
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_SRCURL=(https://github.com/XniceCraft/libandroid-support/archive/refs/tags/v${TERMUX_PKG_VERSION[0]}.tar.gz
 		   https://github.com/termux/wcwidth/archive/v${TERMUX_PKG_VERSION[1]}.tar.gz)
-TERMUX_PKG_SHA256=(9b00d48eb05d41a794a92d71bd92bd79ac6b4dc7d420161439bd8038ddfd842f
+TERMUX_PKG_SHA256=(600f2040ebd5a47dcb82124b84cdfdf6d0667b569d0ee2953e1d81cbfb676710
 		   d38062a53edb2545b9988be41bd8d217f803fa985158b7cadf95d804761dd1f6)
 TERMUX_PKG_BUILD_IN_SRC=true
 TERMUX_PKG_ESSENTIAL=true
@@ -38,16 +38,16 @@ termux_step_make() {
 				-c $cxx_file -o ./objects/$(basename "$cxx_file").o
 		done
 		if [ $TERMUX_PKG_API_LEVEL -lt 23 ] && [ "${TERMUX_ARCH}" == "aarch64" ]; then
-			$CXX $CPPFLAGS $CXXFLAGS -c src/bionic/include/arch-arm64/___rt_sigqueueinfo.S -o ___rt_sigqueueinfo.o
+			$CXX $CPPFLAGS $CXXFLAGS -c src/bionic/include/arch-arm64/___rt_sigqueueinfo.S -o objects/___rt_sigqueueinfo.o
 		fi
 	fi
 
 	cd objects
 	ar rcu ../libandroid-support.a *.o
 	if [ $TERMUX_PKG_API_LEVEL -lt 24 ]; then
-		$CXX $LDFLAGS -l:libc++_static.a -shared -o ../libandroid-support.so *.o
+		$CXX $LDFLAGS -Wl,--no-undefined -static-libstdc++  -shared -o ../libandroid-support.so *.o
 	else
-		$CC $LDFLAGS -shared -o ../libandroid-support.so *.o
+		$CC $LDFLAGS -Wl,--no-undefined -shared -o ../libandroid-support.so *.o
 	fi
 }
 
