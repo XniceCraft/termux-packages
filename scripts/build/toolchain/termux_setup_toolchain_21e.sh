@@ -180,11 +180,6 @@ termux_setup_toolchain_21e() {
 	cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/armv7a-linux-androideabi-cpp \
 		$_TERMUX_TOOLCHAIN_TMPDIR/bin/arm-linux-androideabi-cpp
 
-	for HOST_PLAT in aarch64-linux-android armv7a-linux-androideabi i686-linux-android x86_64-linux-android arm-linux-androideabi; do
-		sed -i "s/\"\$@\"/\$\(echo \"\$*\" | sed -E \"s\/--(start|end)-no-unused-arguments\/\/g\")/g" \
-			$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang
-	done
-
 	# Create a pkg-config wrapper. We use path to host pkg-config to
 	# avoid picking up a cross-compiled pkg-config later on.
 	local _HOST_PKGCONFIG
