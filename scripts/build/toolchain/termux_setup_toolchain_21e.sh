@@ -1,7 +1,7 @@
 termux_setup_toolchain_21e() {
 	export CFLAGS=" -march=armv8-a+simd -mtune=cortex-a53 -mcpu=cortex-a53 -mlittle-endian -fassociative-math -mfix-cortex-a53-835769 -ffast-math"
 	export CPPFLAGS=""
-	export LDFLAGS="-L${TERMUX_PREFIX}/lib"
+	export LDFLAGS="-L${TERMUX_PREFIX}/lib -Wl,--no-undefined"
 
 	export AS=$TERMUX_HOST_PLATFORM-clang
 	export CC=$TERMUX_HOST_PLATFORM-clang

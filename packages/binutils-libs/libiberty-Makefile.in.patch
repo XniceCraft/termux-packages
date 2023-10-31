@@ -1,0 +1,11 @@
+--- ./libiberty/Makefile.in.orig	2023-10-30 10:00:34.744688082 +0700
++++ ./libiberty/Makefile.in	2023-10-30 10:01:12.118690789 +0700
+@@ -112,7 +112,7 @@
+ 
+ INCDIR=$(srcdir)/$(MULTISRCTOP)../include
+ 
+-COMPILE.c = $(CC) -c @DEFS@ $(CFLAGS) $(CPPFLAGS) -I. -I$(INCDIR) \
++COMPILE.c = $(CC) -c @DEFS@ $(CFLAGS) -I. -I$(INCDIR) $(CPPFLAGS) \
+                $(HDEFINES) @ac_libiberty_warn_cflags@ -D_GNU_SOURCE \
+                @CET_HOST_FLAGS@
+ 
