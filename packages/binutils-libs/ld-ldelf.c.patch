@@ -1,0 +1,16 @@
+--- src/ld/ldelf.c.orig	2023-11-06 22:17:21.206372811 +0700
++++ src/ld/ldelf.c	2023-11-06 22:25:04.266406347 +0700
+@@ -67,8 +67,13 @@
+ void
+ ldelf_after_parse (void)
+ {
++  #ifdef __ANDROID__
++    #include <android/api-level.h>
++  #endif
++  #if !defined(__ANDROID__) || (defined(__ANDROID__) && __ANDROID_API__ >= 26)
+   if (bfd_link_pie (&link_info))
+     link_info.flags_1 |= (bfd_vma) DF_1_PIE;
++  #endif
+ 
+   if (bfd_link_executable (&link_info)
+       && link_info.nointerp)
