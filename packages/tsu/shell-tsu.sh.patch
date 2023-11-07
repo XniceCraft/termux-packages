@@ -30,3 +30,13 @@ index 8b349a9..8874cc4 100755
  		log_DEBUG _TSU_AS_SUDO
  		if [[ "$_TSU_AS_SUDO" == true ]]; then
  			# sudo copies PATH variable, so most user binaries can run as root
+@@ -317,7 +317,8 @@
+ 				su_args+=("--preserve-environment")
+ 				su_cmdline="PATH=$ANDROID_SYSPATHS:$PATH $ENV_BUILT $STARTUP_SCRIPT "
+ 			else
+-				su_cmdline="PATH=$ANDROID_SYSPATHS env -i $ENV_BUILT $STARTUP_SCRIPT"
++				[[ $(PATH=$ANDROID_SYSPATHS command -v env) ]] && ENV_BIN="env" || ENV_BIN="busybox env"
++				su_cmdline="PATH=$ANDROID_SYSPATHS $ENV_BIN -i $ENV_BUILT $STARTUP_SCRIPT"
+ 			fi
+ 			su_args+=("-c")
+ 			exec "${su_args[@]}" "${su_cmdline}"

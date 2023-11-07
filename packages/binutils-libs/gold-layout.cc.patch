@@ -1,0 +1,16 @@
+--- src/gold/layout.cc.orig	2023-11-07 09:08:46.952203517 +0700
++++ src/gold/layout.cc	2023-11-07 09:14:14.363227229 +0700
+@@ -5442,8 +5442,13 @@
+     flags |= elfcpp::DF_1_NOW;
+   if (parameters->options().Bgroup())
+     flags |= elfcpp::DF_1_GROUP;
++  #ifdef __ANDROID__
++    #include <android/api-level.h>
++  #endif
++  #if !defined(__ANDROID__) || (defined(__ANDROID__) && __ANDROID_API__ >= 26)
+   if (parameters->options().pie())
+     flags |= elfcpp::DF_1_PIE;
++  #endif
+   if (flags != 0)
+     odyn->add_constant(elfcpp::DT_FLAGS_1, flags);
+ 
