@@ -1,0 +1,100 @@
+--- ./usr/include/complex.h.orig	2023-11-14 09:55:42.691693041 +0700
++++ ./usr/include/complex.h	2023-11-14 10:01:21.611689682 +0700
+@@ -54,39 +54,21 @@
+ /* 7.3.5 Trigonometric functions */
+ /* 7.3.5.1 The cacos functions */
+ 
+-#if __ANDROID_API__ >= 23
+-double complex cacos(double complex __z) __INTRODUCED_IN(23);
+-float complex cacosf(float complex __z) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
+-
+-#if __ANDROID_API__ >= 26
+-long double complex cacosl(long double complex __z) __RENAME_LDBL(cacos, 23, 26);
+-#endif /* __ANDROID_API__ >= 26 */
++double complex cacos(double complex __z);
++float complex cacosf(float complex __z);
++long double complex cacosl(long double complex __z);
+ 
+ /* 7.3.5.2 The casin functions */
+ 
+-#if __ANDROID_API__ >= 23
+-double complex casin(double complex __z) __INTRODUCED_IN(23);
+-float complex casinf(float complex __z) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
+-
+-#if __ANDROID_API__ >= 26
+-long double complex casinl(long double complex __z) __RENAME_LDBL(casin, 23, 26);
+-#endif /* __ANDROID_API__ >= 26 */
++double complex casin(double complex __z);
++float complex casinf(float complex __z);
++long double complex casinl(long double complex __z);
+ 
+ /* 7.3.5.1 The catan functions */
+ 
+-#if __ANDROID_API__ >= 23
+-double complex catan(double complex __z) __INTRODUCED_IN(23);
+-float complex catanf(float complex __z) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
+-
+-#if __ANDROID_API__ >= 26
+-long double complex catanl(long double complex __z) __RENAME_LDBL(catan, 23, 26);
+-#endif /* __ANDROID_API__ >= 26 */
++double complex catan(double complex __z);
++float complex catanf(float complex __z);
++long double complex catanl(long double complex __z);
+ 
+ /* 7.3.5.1 The ccos functions */
+ 
+@@ -128,39 +110,21 @@
+ /* 7.3.6 Hyperbolic functions */
+ /* 7.3.6.1 The cacosh functions */
+ 
+-#if __ANDROID_API__ >= 23
+-double complex cacosh(double complex __z) __INTRODUCED_IN(23);
+-float complex cacoshf(float complex __z) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
+-
+-#if __ANDROID_API__ >= 26
+-long double complex cacoshl(long double complex __z) __RENAME_LDBL(cacosh, 23, 26);
+-#endif /* __ANDROID_API__ >= 26 */
++double complex cacosh(double complex __z);
++float complex cacoshf(float complex __z);
++long double complex cacoshl(long double complex __z);
+ 
+ /* 7.3.6.2 The casinh functions */
+ 
+-#if __ANDROID_API__ >= 23
+-double complex casinh(double complex __z) __INTRODUCED_IN(23);
+-float complex casinhf(float complex __z) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
+-
+-#if __ANDROID_API__ >= 26
+-long double complex casinhl(long double complex __z) __RENAME_LDBL(casinh, 23, 26);
+-#endif /* __ANDROID_API__ >= 26 */
++double complex casinh(double complex __z);
++float complex casinhf(float complex __z);
++long double complex casinhl(long double complex __z);
+ 
+ /* 7.3.6.3 The catanh functions */
+ 
+-#if __ANDROID_API__ >= 23
+-double complex catanh(double complex __z) __INTRODUCED_IN(23);
+-float complex catanhf(float complex __z) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
+-
+-#if __ANDROID_API__ >= 26
+-long double complex catanhl(long double complex __z) __RENAME_LDBL(catanh, 23, 26);
+-#endif /* __ANDROID_API__ >= 26 */
++double complex catanh(double complex __z);
++float complex catanhf(float complex __z);
++long double complex catanhl(long double complex __z);
+ 
+ /* 7.3.6.4 The ccosh functions */
+ 

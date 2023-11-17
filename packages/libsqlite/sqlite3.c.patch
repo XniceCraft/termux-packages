@@ -1,5 +1,15 @@
 --- sqlite-autoconf-3370000/sqlite3.c
 +++ sqlite-autoconf-3370000.mod/sqlite3.c
+@@ -38933,9 +38933,6 @@
+   ** huge problem. Incorrectly concluding that the GNU version is available
+   ** could lead to a segfault though.
+   */
+-#if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)
+-  zErr =
+-# endif
+   strerror_r(iErrno, aErr, sizeof(aErr)-1);
+ 
+ #elif SQLITE_THREADSAFE
 @@ -47137,9 +47137,7 @@
         0, /* getenv("TMP") */
         0, /* getenv("TEMP") */
