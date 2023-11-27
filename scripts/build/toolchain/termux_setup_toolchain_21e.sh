@@ -1,7 +1,11 @@
 termux_setup_toolchain_21e() {
-	export CFLAGS=" -march=armv8-a+simd -mtune=cortex-a53 -mcpu=cortex-a53 -mlittle-endian -fassociative-math -mfix-cortex-a53-835769 -ffast-math"
+	export CFLAGS=""
+	if [[ "$TERMUX_ARCH" = "aarch64" ]]; then
+                CFLAGS+=" -march=armv8-a+simd -mtune=cortex-a53 -mcpu=cortex-a53 -mlittle-endian -fassociative-math -mfix-cortex-a53-835769"
+        fi
 	export CPPFLAGS=""
 	export LDFLAGS="-L${TERMUX_PREFIX}/lib -Wl,--no-undefined"
+#	export LDFLAGS="-L${TERMUX_PREFIX}/lib "
 
 	export AS=$TERMUX_HOST_PLATFORM-clang
 	export CC=$TERMUX_HOST_PLATFORM-clang
@@ -70,7 +74,9 @@ termux_setup_toolchain_21e() {
 	# We might also want to consider shipping libomp.so instead; since r21
 	LDFLAGS+=" -fopenmp -static-openmp"
 
-	LDFLAGS+=" -Wl,--hash-style=sysv"
+	if [ $TERMUX_PKG_API_LEVEL -lt 24 ]; then
+		LDFLAGS+=" -Wl,--hash-style=sysv"
+	fi
 
 	# Android 7 started to support DT_RUNPATH (but not DT_RPATH).
 	LDFLAGS+=" -Wl,--enable-new-dtags"
@@ -117,7 +123,7 @@ termux_setup_toolchain_21e() {
 	fi
 
 	if [ -d "${TERMUX_STANDALONE_TOOLCHAIN}" ]; then
-		return 0
+		return
 	fi
 
 	# Do not put toolchain in place until we are done with setup, to avoid having a half setup
@@ -217,7 +223,10 @@ termux_setup_toolchain_21e() {
 		usr/include/android/api-level.h
 
 	$TERMUX_ELF_CLEANER --api-level=$TERMUX_PKG_API_LEVEL $(find usr/lib/ -iname "*.so")
-
+	for dir in usr/lib/{aarch64-linux-android,x86_64-linux-android,i686-linux-android}; do
+		# libunwind only available on armv7a
+                echo 'INPUT(-l:libgcc.a)' > $dir/libunwind.a
+	done
 	grep -lrw $_TERMUX_TOOLCHAIN_TMPDIR/sysroot/usr/include/c++/v1 -e '<version>' | xargs -n 1 sed -i 's/<version>/\"version\"/g'
 	mv $_TERMUX_TOOLCHAIN_TMPDIR $TERMUX_STANDALONE_TOOLCHAIN
 }

@@ -1,0 +1,26 @@
+--- ./usr/include/string.h.orig	2023-10-21 19:11:22.518886607 +0700
++++ ./usr/include/string.h	2023-10-21 19:18:50.346919040 +0700
+@@ -71,16 +71,16 @@
+ #if defined(__USE_GNU)
+ #if defined(__cplusplus)
+ 
+-#if __ANDROID_API__ >= 24
+-extern "C++" char* strchrnul(char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(24);
+-extern "C++" const char* strchrnul(const char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(24);
+-#endif /* __ANDROID_API__ >= 24 */
++#if __ANDROID_API__ >= 21
++extern "C++" char* strchrnul(char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(21);
++extern "C++" const char* strchrnul(const char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(21);
++#endif /* __ANDROID_API__ >= 21 */
+ 
+ #else
+ 
+-#if __ANDROID_API__ >= 24
+-char* strchrnul(const char* __s, int __ch) __attribute_pure__ __INTRODUCED_IN(24);
+-#endif /* __ANDROID_API__ >= 24 */
++#if __ANDROID_API__ >= 21
++char* strchrnul(const char* __s, int __ch) __attribute_pure__ __INTRODUCED_IN(21);
++#endif /* __ANDROID_API__ >= 21 */
+ 
+ #endif
+ #endif
