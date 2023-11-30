@@ -1,0 +1,16 @@
+--- src/lld/ELF/SyntheticSections.cpp.orig	2023-11-29 07:44:59.576353095 +0700
++++ src/lld/ELF/SyntheticSections.cpp	2023-11-29 07:46:50.726342332 +0700
+@@ -1345,8 +1345,13 @@
+     dtFlags1 |= DF_1_NODELETE;
+   if (config->zNodlopen)
+     dtFlags1 |= DF_1_NOOPEN;
++  #ifdef __ANDROID__
++  #include <android/api-level.h>
++  #endif
++  #if !defined(__ANDROID__) || (defined(__ANDROID__) && __ANDROID_API__ >= 26)
+   if (config->pie)
+     dtFlags1 |= DF_1_PIE;
++  #endif
+   if (config->zNow) {
+     dtFlags |= DF_BIND_NOW;
+     dtFlags1 |= DF_1_NOW;
