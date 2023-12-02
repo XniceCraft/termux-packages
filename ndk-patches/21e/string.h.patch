@@ -1,26 +1,44 @@
---- ./usr/include/string.h.orig	2023-10-21 19:11:22.518886607 +0700
-+++ ./usr/include/string.h	2023-10-21 19:18:50.346919040 +0700
-@@ -71,16 +71,16 @@
+--- ./usr/include/string.h.orig	2023-12-02 00:04:41.378304035 -0500
++++ ./usr/include/string.h	2023-12-02 00:14:39.990915410 -0500
+@@ -70,17 +70,11 @@
+ 
  #if defined(__USE_GNU)
  #if defined(__cplusplus)
- 
+-
 -#if __ANDROID_API__ >= 24
 -extern "C++" char* strchrnul(char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(24);
 -extern "C++" const char* strchrnul(const char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(24);
 -#endif /* __ANDROID_API__ >= 24 */
-+#if __ANDROID_API__ >= 21
-+extern "C++" char* strchrnul(char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(21);
-+extern "C++" const char* strchrnul(const char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(21);
-+#endif /* __ANDROID_API__ >= 21 */
++extern "C++" char* strchrnul(char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__;
++extern "C++" const char* strchrnul(const char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__;
  
  #else
- 
+-
 -#if __ANDROID_API__ >= 24
 -char* strchrnul(const char* __s, int __ch) __attribute_pure__ __INTRODUCED_IN(24);
 -#endif /* __ANDROID_API__ >= 24 */
-+#if __ANDROID_API__ >= 21
-+char* strchrnul(const char* __s, int __ch) __attribute_pure__ __INTRODUCED_IN(21);
-+#endif /* __ANDROID_API__ >= 21 */
++char* strchrnul(const char* __s, int __ch) __attribute_pure__;
+ 
+ #endif
+ #endif
+@@ -168,17 +162,11 @@
+  * It doesn't modify its argument, and in C++ it's const-correct.
+  */
+ #if defined(__cplusplus)
+-
+-#if __ANDROID_API__ >= 23
+-extern "C++" char* basename(char* __path) __RENAME(__gnu_basename) __INTRODUCED_IN(23);
+-extern "C++" const char* basename(const char* __path) __RENAME(__gnu_basename) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
++extern "C++" char* basename(char* __path) __RENAME(__gnu_basename);
++extern "C++" const char* basename(const char* __path) __RENAME(__gnu_basename);
+ 
+ #else
+-
+-#if __ANDROID_API__ >= 23
+-char* basename(const char* __path) __RENAME(__gnu_basename) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
++char* basename(const char* __path) __RENAME(__gnu_basename);
  
  #endif
  #endif

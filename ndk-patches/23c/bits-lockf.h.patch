@@ -1,0 +1,20 @@
+--- ./usr/include/bits/lockf.h.orig	2023-12-02 00:05:26.907187205 -0500
++++ ./usr/include/bits/lockf.h	2023-12-02 00:08:39.284918949 -0500
+@@ -57,15 +57,12 @@
+  * See also flock().
+  */
+ 
+-#if __ANDROID_API__ >= 24
+-int lockf(int __fd, int __cmd, off_t __length) __RENAME_IF_FILE_OFFSET64(lockf64) __INTRODUCED_IN(24);
++int lockf(int __fd, int __cmd, off_t __length) __RENAME_IF_FILE_OFFSET64(lockf64);
+ 
+ /**
+  * Like lockf() but allows using a 64-bit length
+  * even from a 32-bit process without `__FILE_OFFSET_BITS=64`.
+  */
+-int lockf64(int __fd, int __cmd, off64_t __length) __INTRODUCED_IN(24);
+-#endif /* __ANDROID_API__ >= 24 */
+-
++int lockf64(int __fd, int __cmd, off64_t __length);
+ 
+ __END_DECLS
