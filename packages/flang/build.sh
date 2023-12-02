@@ -4,9 +4,10 @@ TERMUX_PKG_LICENSE="Apache-2.0"
 TERMUX_PKG_LICENSE_FILE="flang/LICENSE.TXT"
 TERMUX_PKG_MAINTAINER="@termux"
 LLVM_MAJOR_VERSION=17
-TERMUX_PKG_VERSION=${LLVM_MAJOR_VERSION}.0.2
+TERMUX_PKG_VERSION=${LLVM_MAJOR_VERSION}.0.3
+TERMUX_PKG_REVISION=1
 TERMUX_PKG_SRCURL=https://github.com/llvm/llvm-project/releases/download/llvmorg-$TERMUX_PKG_VERSION/llvm-project-$TERMUX_PKG_VERSION.src.tar.xz
-TERMUX_PKG_SHA256=351562b14d42fcefcbf00cc1f327680a1062bbbf67a1e1ca6acb64c473b06394
+TERMUX_PKG_SHA256=be5a1e44d64f306bb44fce7d36e3b3993694e8e6122b2348608906283c176db8
 TERMUX_PKG_AUTO_UPDATE=false
 TERMUX_PKG_HOSTBUILD=true
 TERMUX_PKG_DEPENDS="libc++, libllvm, clang, lld, mlir"
@@ -71,4 +72,21 @@ termux_step_pre_configure() {
 termux_step_post_configure() {
 	TERMUX_PKG_SRCDIR=$TERMUX_SRCDIR_SAVE
 	unset TERMUX_SRCDIR_SAVE
+}
+
+termux_step_post_make_install() {
+	# Copy module source files
+	mkdir -p $TERMUX_PREFIX/opt/flang/{include,module}
+	cp -f $TERMUX_PKG_SRCDIR/flang/module/* $TERMUX_PREFIX/opt/flang/module/
+	ln -sf $TERMUX_PREFIX/include/flang $TERMUX_PREFIX/opt/flang/include/
+}
+
+termux_step_create_debscripts() {
+	sed -e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" \
+		"$TERMUX_PKG_BUILDER_DIR/postinst.sh.in" > ./postinst
+	chmod +x ./postinst
+
+	sed -e "s|@TERMUX_PREFIX@|$TERMUX_PREFIX|g" \
+		"$TERMUX_PKG_BUILDER_DIR/prerm.sh.in" > ./prerm
+	chmod +x ./prerm
 }
