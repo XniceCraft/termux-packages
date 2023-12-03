@@ -1,6 +1,6 @@
---- ./usr/include/grp.h.orig
-+++ ./usr/include/grp.h
-@@ -50,21 +50,15 @@
+--- ./usr/include/grp.h	2023-10-05 16:42:59.000000000 -0400
++++ ./usr/include/grp.h	2023-12-02 13:52:15.872439447 -0500
+@@ -50,21 +50,16 @@
  struct group* _Nullable getgrgid(gid_t __gid);
  struct group* _Nullable getgrnam(const char* _Nonnull __name);
  
@@ -13,10 +13,11 @@
 -void endgrent(void) __INTRODUCED_IN(26);
 -#endif /* __ANDROID_API__ >= 26 */
 -
--
++int getgrnam_r(const char* _Nonnull __name, struct group* __BIONIC_COMPLICATED_NULLNESS __group, char* _Nonnull __buf, size_t __n, struct group* _Nullable *_Nonnull __result);
+ 
  #if __ANDROID_API__ >= 24
  int getgrgid_r(gid_t __gid, struct group* __BIONIC_COMPLICATED_NULLNESS __group, char* _Nonnull __buf, size_t __n, struct group* _Nullable * _Nonnull __result) __INTRODUCED_IN(24);
- int getgrnam_r(const char* _Nonnull __name, struct group* __BIONIC_COMPLICATED_NULLNESS __group, char* _Nonnull __buf, size_t __n, struct group* _Nullable *_Nonnull __result) __INTRODUCED_IN(24);
+-int getgrnam_r(const char* _Nonnull __name, struct group* __BIONIC_COMPLICATED_NULLNESS __group, char* _Nonnull __buf, size_t __n, struct group* _Nullable *_Nonnull __result) __INTRODUCED_IN(24);
  #endif /* __ANDROID_API__ >= 24 */
  
 +static struct group* _Nullable getgrent(void) { return 0; }

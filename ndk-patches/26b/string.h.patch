@@ -1,0 +1,41 @@
+--- ./usr/include/string.h.orig	2023-12-02 19:33:40.025050564 -0500
++++ ./usr/include/string.h	2023-12-02 19:38:06.281159480 -0500
+@@ -91,17 +91,11 @@
+ 
+ #if defined(__USE_GNU)
+ #if defined(__cplusplus)
+-
+-#if __ANDROID_API__ >= 24
+-extern "C++" char* _Nonnull strchrnul(char* _Nonnull __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(24);
+-extern "C++" const char* _Nonnull strchrnul(const char* _Nonnull __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(24);
+-#endif /* __ANDROID_API__ >= 24 */
++extern "C++" char* _Nonnull strchrnul(char* _Nonnull __s, int __ch) __RENAME(strchrnul) __attribute_pure__;
++extern "C++" const char* _Nonnull strchrnul(const char* _Nonnull __s, int __ch) __RENAME(strchrnul) __attribute_pure__;
+ 
+ #else
+-
+-#if __ANDROID_API__ >= 24
+-char* _Nonnull strchrnul(const char* _Nonnull __s, int __ch) __attribute_pure__ __INTRODUCED_IN(24);
+-#endif /* __ANDROID_API__ >= 24 */
++char* _Nonnull strchrnul(const char* _Nonnull __s, int __ch) __attribute_pure__;
+ 
+ #endif
+ #endif
+@@ -189,17 +183,11 @@
+  * It doesn't modify its argument, and in C++ it's const-correct.
+  */
+ #if defined(__cplusplus)
+-
+-#if __ANDROID_API__ >= 23
+ extern "C++" char* _Nonnull basename(char* _Nullable __path) __RENAME(__gnu_basename) __INTRODUCED_IN(23);
+ extern "C++" const char* _Nonnull basename(const char* _Nonnull __path) __RENAME(__gnu_basename) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+ 
+ #else
+-
+-#if __ANDROID_API__ >= 23
+ char* _Nonnull basename(const char* _Nonnull __path) __RENAME(__gnu_basename) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+ 
+ #endif
+ #endif

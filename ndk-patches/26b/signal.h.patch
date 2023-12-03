@@ -1,0 +1,14 @@
+--- ./usr/include/signal.h.orig	2023-12-02 19:06:36.339818816 -0500
++++ ./usr/include/signal.h	2023-12-02 19:07:09.189451874 -0500
+@@ -195,10 +195,9 @@
+ int pthread_sigmask64(int __how, const sigset64_t* _Nullable __new_set, sigset64_t* _Nullable __old_set) __INTRODUCED_IN(28);
+ #endif /* __ANDROID_API__ >= 28 */
+ 
+-
++int sigqueue(pid_t __pid, int __signal, const union sigval __value);
+ 
+ #if __ANDROID_API__ >= 23
+-int sigqueue(pid_t __pid, int __signal, const union sigval __value) __INTRODUCED_IN(23);
+ int sigtimedwait(const sigset_t* _Nonnull __set, siginfo_t* _Nullable __info, const struct timespec* _Nullable __timeout) __INTRODUCED_IN(23);
+ #endif /* __ANDROID_API__ >= 23 */
+ 
