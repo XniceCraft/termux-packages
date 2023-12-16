@@ -1,0 +1,53 @@
+--- ./usr/include/pthread.h.orig	2023-12-14 19:46:41.559395360 -0500
++++ ./usr/include/pthread.h	2023-12-14 19:49:14.771304487 -0500
+@@ -67,9 +67,7 @@
+ 
+ #define PTHREAD_ONCE_INIT 0
+ 
+-#if __ANDROID_API__ >= 24
+ #define PTHREAD_BARRIER_SERIAL_THREAD (-1)
+-#endif
+ 
+ #if defined(__LP64__)
+ #define PTHREAD_STACK_MIN (4 * PAGE_SIZE)
+@@ -318,26 +316,20 @@
+ int pthread_rwlock_unlock(pthread_rwlock_t* __rwlock);
+ int pthread_rwlock_wrlock(pthread_rwlock_t* __rwlock);
+ 
+-#if __ANDROID_API__ >= 24
+-int pthread_barrierattr_init(pthread_barrierattr_t* __attr) __INTRODUCED_IN(24);
+-int pthread_barrierattr_destroy(pthread_barrierattr_t* __attr) __INTRODUCED_IN(24);
+-int pthread_barrierattr_getpshared(const pthread_barrierattr_t* __attr, int* __shared) __INTRODUCED_IN(24);
+-int pthread_barrierattr_setpshared(pthread_barrierattr_t* __attr, int __shared) __INTRODUCED_IN(24);
+-#endif
+-
+-#if __ANDROID_API__ >= 24
+-int pthread_barrier_init(pthread_barrier_t* __barrier, const pthread_barrierattr_t* __attr, unsigned __count) __INTRODUCED_IN(24);
+-int pthread_barrier_destroy(pthread_barrier_t* __barrier) __INTRODUCED_IN(24);
+-int pthread_barrier_wait(pthread_barrier_t* __barrier) __INTRODUCED_IN(24);
+-#endif
+-
+-#if __ANDROID_API__ >= 24
+-int pthread_spin_destroy(pthread_spinlock_t* __spinlock) __INTRODUCED_IN(24);
+-int pthread_spin_init(pthread_spinlock_t* __spinlock, int __shared) __INTRODUCED_IN(24);
+-int pthread_spin_lock(pthread_spinlock_t* __spinlock) __INTRODUCED_IN(24);
+-int pthread_spin_trylock(pthread_spinlock_t* __spinlock) __INTRODUCED_IN(24);
+-int pthread_spin_unlock(pthread_spinlock_t* __spinlock) __INTRODUCED_IN(24);
+-#endif
++int pthread_barrierattr_init(pthread_barrierattr_t* __attr);
++int pthread_barrierattr_destroy(pthread_barrierattr_t* __attr);
++int pthread_barrierattr_getpshared(pthread_barrierattr_t* __attr, int* __shared);
++int pthread_barrierattr_setpshared(pthread_barrierattr_t* __attr, int __shared);
++
++int pthread_barrier_init(pthread_barrier_t* __barrier, const pthread_barrierattr_t* __attr, unsigned __count);
++int pthread_barrier_destroy(pthread_barrier_t* __barrier);
++int pthread_barrier_wait(pthread_barrier_t* __barrier);
++
++int pthread_spin_destroy(pthread_spinlock_t* __spinlock);
++int pthread_spin_init(pthread_spinlock_t* __spinlock, int __shared);
++int pthread_spin_lock(pthread_spinlock_t* __spinlock);
++int pthread_spin_trylock(pthread_spinlock_t* __spinlock);
++int pthread_spin_unlock(pthread_spinlock_t* __spinlock);
+ 
+ pthread_t pthread_self(void) __attribute_const__;
+ 

@@ -10,3 +10,54 @@
  #if defined(__LP64__)
  #define __DIRENT64_INO_T ino_t
  #else
+@@ -155,11 +155,9 @@
+  * seeks a directory stream to the given entry, which must be a value returned
+  * by telldir().
+  *
+- * Available since API level 23.
+  */
+ 
+-#if __ANDROID_API__ >= 23
+-void seekdir(DIR* __dir, long __location) __INTRODUCED_IN(23);
++void seekdir(DIR* __dir, long __location);
+ 
+ /**
+  * [telldir(3)](http://man7.org/linux/man-pages/man3/telldir.3.html)
+@@ -168,10 +166,8 @@
+  *
+  * Returns the current position on success and returns -1 and sets `errno` on failure.
+  *
+- * Available since API level 23.
+  */
+-long telldir(DIR* __dir) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
++long telldir(DIR* __dir);
+ 
+ 
+ /**
+@@ -240,11 +236,9 @@
+  * Returns the number of entries returned in the list on success,
+  * and returns -1 and sets `errno` on failure.
+  *
+- * Available since API level 24.
+  */
+ 
+-#if __ANDROID_API__ >= 24
+-int scandirat64(int __dir_fd, const char* __path, struct dirent64*** __name_list, int (*__filter)(const struct dirent64*), int (*__comparator)(const struct dirent64**, const struct dirent64**)) __INTRODUCED_IN(24);
++int scandirat64(int __dir_fd, const char* __path, struct dirent64*** __name_list, int (*__filter)(const struct dirent64*), int (*__comparator)(const struct dirent64**, const struct dirent64**));
+ 
+ /**
+  * [scandirat(3)](http://man7.org/linux/man-pages/man3/scandirat.3.html)
+@@ -256,11 +250,8 @@
+  * Returns the number of entries returned in the list on success,
+  * and returns -1 and sets `errno` on failure.
+  *
+- * Available since API level 24.
+  */
+-int scandirat(int __dir_fd, const char* __path, struct dirent*** __name_list, int (*__filter)(const struct dirent*), int (*__comparator)(const struct dirent**, const struct dirent**)) __INTRODUCED_IN(24);
+-#endif /* __ANDROID_API__ >= 24 */
+-
++int scandirat(int __dir_fd, const char* __path, struct dirent*** __name_list, int (*__filter)(const struct dirent*), int (*__comparator)(const struct dirent**, const struct dirent**));
+ 
+ #endif
+ 

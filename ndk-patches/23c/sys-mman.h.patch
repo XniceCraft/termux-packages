@@ -1,0 +1,31 @@
+--- ./usr/include/sys/mman.h.orig	2023-12-14 19:27:53.184975102 -0500
++++ ./usr/include/sys/mman.h	2023-12-14 19:29:22.704674233 -0500
+@@ -195,8 +195,6 @@
+ 
+ #endif
+ 
+-#if __ANDROID_API__ >= 23
+-
+ /*
+  * Some third-party code uses the existence of POSIX_MADV_NORMAL to detect the
+  * availability of posix_madvise. This is not correct, since having up-to-date
+@@ -217,8 +215,6 @@
+ /** Flag for posix_madvise(). */
+ #define POSIX_MADV_DONTNEED   MADV_DONTNEED
+ 
+-#endif
+-
+ /**
+  * [posix_madvise(3)](http://man7.org/linux/man-pages/man3/posix_madvise.3.html)
+  * gives the kernel advice about future usage patterns.
+@@ -228,9 +224,7 @@
+  * See also madvise() which has been available much longer.
+  */
+ 
+-#if __ANDROID_API__ >= 23
+-int posix_madvise(void* __addr, size_t __size, int __advice) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
++int posix_madvise(void* __addr, size_t __size, int __advice);
+ 
+ 
+ __END_DECLS

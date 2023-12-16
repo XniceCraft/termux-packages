@@ -1,0 +1,15 @@
+--- ./usr/include/time.h.orig	2023-12-14 19:36:40.167977517 -0500
++++ ./usr/include/time.h	2023-12-14 19:37:12.798596863 -0500
+@@ -95,11 +95,7 @@
+ 
+ clock_t clock(void);
+ 
+-
+-#if __ANDROID_API__ >= 23
+-int clock_getcpuclockid(pid_t __pid, clockid_t* __clock) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
++int clock_getcpuclockid(pid_t __pid, clockid_t* __clock);
+ 
+ int clock_getres(clockid_t __clock, struct timespec* __resolution);
+ int clock_gettime(clockid_t __clock, struct timespec* __ts);

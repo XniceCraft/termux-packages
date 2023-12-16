@@ -1,0 +1,67 @@
+--- ./usr/include/sys/uio.h.orig	2023-12-14 19:25:27.572211295 -0500
++++ ./usr/include/sys/uio.h	2023-12-14 19:51:01.571332364 -0500
+@@ -67,10 +67,8 @@
+  * Returns the number of bytes read on success,
+  * and returns -1 and sets `errno` on failure.
+  *
+- * Available since API level 24.
+  */
+ 
+-#if __ANDROID_API__ >= 24
+-ssize_t preadv(int __fd, const struct iovec* __iov, int __count, off_t __offset) __RENAME_IF_FILE_OFFSET64(preadv64) __INTRODUCED_IN(24);
++ssize_t preadv(int __fd, const struct iovec* __iov, int __count, off_t __offset) __RENAME_IF_FILE_OFFSET64(preadv64);
+ 
+ /**
+@@ -83,23 +81,19 @@
+  *
+  * Available since API level 24.
+  */
+-ssize_t pwritev(int __fd, const struct iovec* __iov, int __count, off_t __offset) __RENAME_IF_FILE_OFFSET64(pwritev64) __INTRODUCED_IN(24);
++ssize_t pwritev(int __fd, const struct iovec* __iov, int __count, off_t __offset) __RENAME_IF_FILE_OFFSET64(pwritev64);
+ 
+ /**
+  * Like preadv() but with a 64-bit offset even in a 32-bit process.
+  *
+- * Available since API level 24.
+  */
+-ssize_t preadv64(int __fd, const struct iovec* __iov, int __count, off64_t __offset) __INTRODUCED_IN(24);
++ssize_t preadv64(int __fd, const struct iovec* __iov, int __count, off64_t __offset);
+ 
+ /**
+  * Like pwritev() but with a 64-bit offset even in a 32-bit process.
+  *
+- * Available since API level 24.
+  */
+-ssize_t pwritev64(int __fd, const struct iovec* __iov, int __count, off64_t __offset) __INTRODUCED_IN(24);
+-#endif /* __ANDROID_API__ >= 24 */
+-
++ssize_t pwritev64(int __fd, const struct iovec* __iov, int __count, off64_t __offset);
+ 
+ /**
+  * [preadv2(2)](http://man7.org/linux/man-pages/man2/preadv2.2.html) reads
+@@ -150,11 +144,9 @@
+  * Returns the number of bytes read on success,
+  * and returns -1 and sets `errno` on failure.
+  *
+- * Available since API level 23.
+  */
+ 
+-#if __ANDROID_API__ >= 23
+-ssize_t process_vm_readv(pid_t __pid, const struct iovec* __local_iov, unsigned long __local_iov_count, const struct iovec* __remote_iov, unsigned long __remote_iov_count, unsigned long __flags) __INTRODUCED_IN(23);
++ssize_t process_vm_readv(pid_t __pid, const struct iovec* __local_iov, unsigned long __local_iov_count, const struct iovec* __remote_iov, unsigned long __remote_iov_count, unsigned long __flags);
+ 
+ /**
+  * [process_vm_writev(2)](http://man7.org/linux/man-pages/man2/process_vm_writev.2.html)
+@@ -163,11 +155,8 @@
+  * Returns the number of bytes read on success,
+  * and returns -1 and sets `errno` on failure.
+  *
+- * Available since API level 23.
+  */
+-ssize_t process_vm_writev(pid_t __pid, const struct iovec* __local_iov, unsigned long __local_iov_count, const struct iovec* __remote_iov, unsigned long __remote_iov_count, unsigned long __flags) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
++ssize_t process_vm_writev(pid_t __pid, const struct iovec* __local_iov, unsigned long __local_iov_count, const struct iovec* __remote_iov, unsigned long __remote_iov_count, unsigned long __flags);
+ 
+ #endif
+ 

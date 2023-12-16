@@ -1,0 +1,36 @@
+--- src/configure.orig	2023-12-03 00:54:22.477286443 -0500
++++ src/configure	2023-12-03 00:54:54.235899778 -0500
+@@ -32874,33 +32874,6 @@
+ fi
+ 
+ 
+-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-
+-__attribute__((visibility("hidden")))
+-int
+-versioned_symbol_internal (void)
+-{
+-}
+-__typeof__ (versioned_symbol_internal) versioned_symbol
+-   __attribute__ ((visibility ("default"),
+-                   alias ("versioned_symbol_internal")));
+-__asm__ (".symver versioned_symbol, versioned_symbol@IDN2_0.0.0");
+-
+-int
+-main (void)
+-{
+-
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-if ac_fn_c_try_compile "$LINENO"
+-then :
+-
+-printf "%s\n" "#define HAVE_SYMVER_ALIAS_SUPPORT 1" >>confdefs.h
+-
+-fi
+ rm -f core conftest.err conftest.$ac_objext conftest.beam conftest.$ac_ext
+ 
+ #

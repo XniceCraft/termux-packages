@@ -1,5 +1,18 @@
 --- ./usr/include/unistd.h.orig	2021-08-16 11:52:08.095542840 +0200
 +++ ./usr/include/unistd.h	2021-08-16 11:52:08.565542673 +0200
+@@ -315,11 +315,7 @@
+ int usleep(useconds_t __microseconds);
+ 
+ int gethostname(char* __buf, size_t __buf_size);
+-
+-#if __ANDROID_API__ >= 23
+-int sethostname(const char* __name, size_t __n) __INTRODUCED_IN(23);
++int sethostname(const char* __name, size_t __n);
+-#endif /* __ANDROID_API__ >= 23 */
+-
+ 
+ int brk(void* __addr);
+ void* sbrk(ptrdiff_t __increment);
 @@ -375,6 +375,74 @@
  #undef _UNISTD_H_
  #endif

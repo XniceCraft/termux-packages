@@ -1,6 +1,17 @@
---- ./usr/include/string.h.orig	2023-12-02 00:04:41.378304035 -0500
-+++ ./usr/include/string.h	2023-12-02 00:14:39.990915410 -0500
-@@ -70,17 +70,11 @@
+--- ./usr/include/string.h.orig	2023-12-14 19:18:47.245622016 -0500
++++ ./usr/include/string.h	2023-12-14 19:58:57.787379917 -0500
+@@ -53,9 +53,7 @@
+ void* memcpy(void*, const void*, size_t);
+ #if defined(__USE_GNU)
+ 
+-#if __ANDROID_API__ >= 23
+-void* mempcpy(void* __dst, const void* __src, size_t __n) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
++void* mempcpy(void* __dst, const void* __src, size_t __n);
+ 
+ #endif
+ void* memmove(void* __dst, const void* __src, size_t __n);
+@@ -70,18 +68,10 @@
  
  #if defined(__USE_GNU)
  #if defined(__cplusplus)
@@ -9,19 +20,37 @@
 -extern "C++" char* strchrnul(char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(24);
 -extern "C++" const char* strchrnul(const char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__ __INTRODUCED_IN(24);
 -#endif /* __ANDROID_API__ >= 24 */
+-
 +extern "C++" char* strchrnul(char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__;
 +extern "C++" const char* strchrnul(const char* __s, int __ch) __RENAME(strchrnul) __attribute_pure__;
- 
  #else
 -
 -#if __ANDROID_API__ >= 24
 -char* strchrnul(const char* __s, int __ch) __attribute_pure__ __INTRODUCED_IN(24);
 -#endif /* __ANDROID_API__ >= 24 */
+-
 +char* strchrnul(const char* __s, int __ch) __attribute_pure__;
+ #endif
+ #endif
  
+@@ -120,13 +110,10 @@
+ char* strtok_r(char* __s, const char* __delimiter, char** __pos_ptr);
+ 
+ char* strerror(int __errno_value);
++char* strerror_l(int __errno_value, locale_t __l);
+ 
+-#if __ANDROID_API__ >= 23
+-char* strerror_l(int __errno_value, locale_t __l) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
+-#if defined(__USE_GNU) && __ANDROID_API__ >= 23
+-char* strerror_r(int __errno_value, char* __buf, size_t __n) __RENAME(__gnu_strerror_r) __INTRODUCED_IN(23);
++#if defined(__USE_GNU)
++char* strerror_r(int __errno_value, char* __buf, size_t __n) __RENAME(__gnu_strerror_r);
+ #else /* POSIX */
+ int strerror_r(int __errno_value, char* __buf, size_t __n);
  #endif
- #endif
-@@ -168,17 +162,11 @@
+@@ -168,18 +155,10 @@
   * It doesn't modify its argument, and in C++ it's const-correct.
   */
  #if defined(__cplusplus)
@@ -30,15 +59,16 @@
 -extern "C++" char* basename(char* __path) __RENAME(__gnu_basename) __INTRODUCED_IN(23);
 -extern "C++" const char* basename(const char* __path) __RENAME(__gnu_basename) __INTRODUCED_IN(23);
 -#endif /* __ANDROID_API__ >= 23 */
+-
 +extern "C++" char* basename(char* __path) __RENAME(__gnu_basename);
 +extern "C++" const char* basename(const char* __path) __RENAME(__gnu_basename);
- 
  #else
 -
 -#if __ANDROID_API__ >= 23
 -char* basename(const char* __path) __RENAME(__gnu_basename) __INTRODUCED_IN(23);
 -#endif /* __ANDROID_API__ >= 23 */
+-
 +char* basename(const char* __path) __RENAME(__gnu_basename);
+ #endif
+ #endif
  
- #endif
- #endif

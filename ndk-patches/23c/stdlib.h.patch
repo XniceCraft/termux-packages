@@ -8,6 +8,37 @@
  #include <sys/cdefs.h>
  #include <xlocale.h>
  
+@@ -67,14 +67,10 @@
+ char* mkdtemp(char* __template);
+ char* mktemp(char* __template) __attribute__((deprecated("mktemp is unsafe, use mkstemp or tmpfile instead")));
+ 
+-
+-#if __ANDROID_API__ >= 23
+-int mkostemp64(char* __template, int __flags) __INTRODUCED_IN(23);
+-int mkostemp(char* __template, int __flags) __INTRODUCED_IN(23);
+-int mkostemps64(char* __template, int __suffix_length, int __flags) __INTRODUCED_IN(23);
+-int mkostemps(char* __template, int __suffix_length, int __flags) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
++int mkostemp64(char* __template, int __flags);
++int mkostemp(char* __template, int __flags);
++int mkostemps64(char* __template, int __suffix_length, int __flags);
++int mkostemps(char* __template, int __suffix_length, int __flags);
+ 
+ #if __ANDROID_API__ >= 21
+ int mkstemp64(char* __template) __INTRODUCED_IN(21);
+@@ -140,10 +136,7 @@
+ double drand48(void);
+ double erand48(unsigned short __xsubi[3]);
+ long jrand48(unsigned short __xsubi[3]);
+-
+-#if __ANDROID_API__ >= 23
+-void lcong48(unsigned short __param[7]) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
++void lcong48(unsigned short __param[7]);
+ 
+ long lrand48(void);
+ long mrand48(void);
 @@ -224,8 +225,7 @@
  size_t wcstombs(char* __dst, const wchar_t* __src, size_t __n);
  

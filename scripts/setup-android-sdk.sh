@@ -11,13 +11,14 @@ set -e -u
 
 ANDROID_SDK_FILE=commandlinetools-linux-${TERMUX_SDK_REVISION}_latest.zip
 ANDROID_SDK_SHA256=0bebf59339eaa534f4217f8aa0972d14dc49e7207be225511073c661ae01da0a
+ANDROID_NDK_FILE=android-ndk-r${TERMUX_NDK_VERSION}-linux.zip
 if [ "$TERMUX_NDK_VERSION" = "26b" ]; then
-	ANDROID_NDK_FILE=android-ndk-r${TERMUX_NDK_VERSION}-linux.zip
 	ANDROID_NDK_SHA256=ad73c0370f0b0a87d1671ed2fd5a9ac9acfd1eb5c43a7fbfbd330f85d19dd632
-elif [ "$TERMUX_NDK_VERSION" = 23c ]; then
-	ANDROID_NDK_FILE=android-ndk-r${TERMUX_NDK_VERSION}-linux.zip
+elif [ "$TERMUX_NDK_VERSION" = "25c" ]; then
+    ANDROID_NDK_SHA256=769ee342ea75f80619d985c2da990c48b3d8eaf45f48783a2d48870d04b46108
+elif [ "$TERMUX_NDK_VERSION" = "23c" ]; then
 	ANDROID_NDK_SHA256=6ce94604b77d28113ecd588d425363624a5228d9662450c48d2e4053f8039242
-elif [ "$TERMUX_NDK_VERSION" = 21e ]; then
+elif [ "$TERMUX_NDK_VERSION" = "21e" ]; then
 	ANDROID_NDK_FILE=android-ndk-r${TERMUX_NDK_VERSION}-linux-x86_64.zip
 	ANDROID_NDK_SHA256=ad7ce5467e18d40050dc51b8e7affc3e635c85bd8c59be62de32352328ed467e
 else
@@ -58,7 +59,10 @@ if [ ! -d "$NDK" ]; then
 	cd android-ndk-r$TERMUX_NDK_VERSION
 	rm -r !("toolchains"|"source.properties")
 	cd toolchains
-	rm -r !("llvm")
+	not_needed_prebuilt=!("llvm")
+    if [[ ! -z $not_needed_prebuilt ]]; then
+        rm -rf $not_needed_prebuilt
+    fi
 fi
 
 if [ -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then

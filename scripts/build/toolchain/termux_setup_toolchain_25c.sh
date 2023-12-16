@@ -1,10 +1,11 @@
-termux_setup_toolchain_26b() {
+termux_setup_toolchain_25c() {
 	export CFLAGS=""
 	if [[ "$TERMUX_ARCH" = "aarch64" ]]; then
-                CFLAGS+=" -march=armv8-a+simd+fp -mtune=cortex-a53 -mcpu=cortex-a53 -mlittle-endian -fassociative-math"
-        fi
+        CFLAGS+=" -march=armv8-a+simd -mtune=cortex-a53 -mcpu=cortex-a53 -mlittle-endian -fassociative-math"
+    fi
 	export CPPFLAGS=""
 	export LDFLAGS="-L${TERMUX_PREFIX}/lib -Wl,--no-undefined"
+#	export LDFLAGS="-L${TERMUX_PREFIX}/lib"
 
 	export AS=$TERMUX_HOST_PLATFORM-clang
 	export CC=$TERMUX_HOST_PLATFORM-clang
@@ -157,7 +158,8 @@ termux_setup_toolchain_26b() {
 		cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT$TERMUX_PKG_API_LEVEL-clang++ \
 			$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-clang++
 
-		cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT$TERMUX_PKG_API_LEVEL-clang \
+
+        cp $_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT$TERMUX_PKG_API_LEVEL-clang \
 			$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-cpp
 		sed -i 's|"$bin_dir/clang"|& -E|' \
 			$_TERMUX_TOOLCHAIN_TMPDIR/bin/$HOST_PLAT-cpp

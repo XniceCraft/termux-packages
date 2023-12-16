@@ -1,29 +1,23 @@
---- ./usr/include/grp.h.orig	2023-11-21 08:05:58.387819986 -0500
-+++ ./usr/include/grp.h	2023-11-21 08:07:21.847373327 -0500
-@@ -50,21 +50,16 @@
- struct group* getgrgid(gid_t __gid);
- struct group* getgrnam(const char* __name);
+--- ./usr/include/grp.h.orig	2023-12-14 18:53:25.991776567 -0500
++++ ./usr/include/grp.h	2023-12-14 18:58:56.593056850 -0500
+@@ -57,12 +57,20 @@
  
--/* Note: Android has thousands and thousands of ids to iterate through. */
--
--#if __ANDROID_API__ >= 26
--struct group* getgrent(void) __INTRODUCED_IN(26);
--
--void setgrent(void) __INTRODUCED_IN(26);
--void endgrent(void) __INTRODUCED_IN(26);
--#endif /* __ANDROID_API__ >= 26 */
--
-+int getgrnam_r(const char* __name, struct group* __group, char* __buf, size_t __n, struct group** __result);
+ void setgrent(void) __INTRODUCED_IN(26);
+ void endgrent(void) __INTRODUCED_IN(26);
++#else
++static struct group* getgrent(void) { return 0; }
++
++static void setgrent(void) {}
++static void endgrent(void) {}
+ #endif /* __ANDROID_API__ >= 26 */
+ 
  
  #if __ANDROID_API__ >= 24
  int getgrgid_r(gid_t __gid, struct group* __group, char* __buf, size_t __n, struct group** __result) __INTRODUCED_IN(24);
--int getgrnam_r(const char* __name, struct group* __group, char* __buf, size_t __n, struct group** __result) __INTRODUCED_IN(24);
+ int getgrnam_r(const char* __name, struct group* __group, char* __buf, size_t __n, struct group** __result) __INTRODUCED_IN(24);
++#else
++static int getgrgid_r(gid_t gid, struct group * grp, char * buf, size_t buflen, struct group ** result) { *result = 0; return 0; }
++static int getgrnam_r(const char * name, struct group * grp, char * buf, size_t buflen, struct group ** result) { *result = 0; return 0; }
  #endif /* __ANDROID_API__ >= 24 */
  
-+static struct group* getgrent(void) { return 0; }
-+static void setgrent(void) {}
-+static void endgrent(void) {}
-+
  int getgrouplist(const char* __user, gid_t __group, gid_t* __groups, int* __group_count);
- int initgroups(const char* __user, gid_t __group);
- 

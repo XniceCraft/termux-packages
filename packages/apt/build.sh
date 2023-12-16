@@ -6,7 +6,7 @@ TERMUX_PKG_VERSION=2.7.6
 TERMUX_PKG_SRCURL=https://deb.debian.org/debian/pool/main/a/apt/apt_${TERMUX_PKG_VERSION}.tar.xz
 TERMUX_PKG_SHA256=8683f54eff0bf54e51e025b348bd0774d0fd437799616f48512956cf15c05f67
 # apt-key requires utilities from coreutils, findutils, gpgv, grep, sed.
-TERMUX_PKG_DEPENDS="coreutils, dpkg, findutils, gpgv, grep, libandroid-glob, libandroid-support, libbz2, libc++, libcurl, libgnutls, liblz4, liblzma, sed, termux-keyring, termux-licenses, xxhash, zlib, zstd"
+TERMUX_PKG_DEPENDS="libandroid-support (>= 31), coreutils, dpkg, findutils, gpgv, grep, libandroid-glob, libandroid-support, libbz2, libc++, libcurl, libgnutls, liblz4, liblzma, sed, termux-keyring, termux-licenses, xxhash, zlib, zstd"
 TERMUX_PKG_CONFLICTS="apt-transport-https, libapt-pkg, unstable-repo, game-repo, science-repo"
 TERMUX_PKG_REPLACES="apt-transport-https, libapt-pkg, unstable-repo, game-repo, science-repo"
 TERMUX_PKG_PROVIDES="unstable-repo, game-repo, science-repo"
@@ -73,7 +73,7 @@ termux_step_post_make_install() {
 		echo "# The main termux repository, with cloudflare cache"
 		echo "deb https://packages-cf.termux.dev/termux-main-21/ stable main"
 		echo "# The main termux repository, without cloudflare cache"
-		echo "# deb https://packages.termux.dev/termux-main-21/ stable main"
+		echo "deb https://packages.termux.dev/termux-main-21/ stable main"
 	} > $TERMUX_PREFIX/etc/apt/sources.list
 
 	# apt-transport-tor

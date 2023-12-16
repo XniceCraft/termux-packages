@@ -6,7 +6,7 @@ TERMUX_PKG_VERSION="4.8.3"
 TERMUX_PKG_SRCURL=https://github.com/ccache/ccache/releases/download/v$TERMUX_PKG_VERSION/ccache-$TERMUX_PKG_VERSION.tar.xz
 TERMUX_PKG_SHA256=e47374c810b248cfca3665ee1d86c7c763ffd68d9944bc422d9c1872611f2b11
 TERMUX_PKG_AUTO_UPDATE=true
-TERMUX_PKG_DEPENDS="libandroid-support, libc++, zlib, zstd"
+TERMUX_PKG_DEPENDS="libandroid-support (>= 31), libc++, zlib, zstd"
 
 #[46/89] Building ASM object src/third_party/blake3/CMakeFiles/blake3.dir/blake3_sse2_x86-64_unix.S.o
 #FAILED: src/third_party/blake3/CMakeFiles/blake3.dir/blake3_sse2_x86-64_unix.S.o

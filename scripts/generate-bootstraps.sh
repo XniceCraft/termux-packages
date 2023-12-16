@@ -23,7 +23,7 @@ TERMUX_PACKAGE_MANAGERS=("apt" "pacman")
 
 # The repository base urls mapping for package managers.
 declare -A REPO_BASE_URLS=(
-	["apt"]="https://packages-cf.termux.dev/apt/termux-main"
+	["apt"]="https://packages-cf.termux.dev/apt/termux-main-21"
 	["pacman"]="https://s3.amazonaws.com/termux-pacman.us/main"
 )
 
@@ -432,6 +432,7 @@ for package_arch in "${TERMUX_ARCHITECTURES[@]}"; do
 	fi
 
 	# Core utilities.
+    pull_package libandroid-support
 	pull_package bash
 	pull_package bzip2
 	if ! ${BOOTSTRAP_ANDROID10_COMPATIBLE}; then

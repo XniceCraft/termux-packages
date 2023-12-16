@@ -1,16 +1,29 @@
---- ./usr/include/signal.h.orig	2023-10-21 19:14:37.562900732 +0700
-+++ ./usr/include/signal.h	2023-10-21 19:16:05.159907076 +0700
-@@ -179,10 +179,11 @@
+--- ./usr/include/signal.h.orig	2023-12-14 19:07:11.130441843 -0500
++++ ./usr/include/signal.h	2023-12-14 19:08:33.408999697 -0500
+@@ -179,23 +179,14 @@
  int pthread_sigmask64(int __how, const sigset64_t* __new_set, sigset64_t* __old_set) __INTRODUCED_IN(28);
  #endif /* __ANDROID_API__ >= 28 */
  
 -
-+#if __ANDROID_API__ >= 21
-+int sigqueue(pid_t __pid, int __signal, const union sigval __value) __INTRODUCED_IN(21);
-+#endif
- 
- #if __ANDROID_API__ >= 23
+-
+-#if __ANDROID_API__ >= 23
 -int sigqueue(pid_t __pid, int __signal, const union sigval __value) __INTRODUCED_IN(23);
- int sigtimedwait(const sigset_t* __set, siginfo_t* __info, const struct timespec* __timeout) __INTRODUCED_IN(23);
- #endif /* __ANDROID_API__ >= 23 */
+-int sigtimedwait(const sigset_t* __set, siginfo_t* __info, const struct timespec* __timeout) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
++int sigqueue(pid_t __pid, int __signal, const union sigval __value);
++int sigtimedwait(const sigset_t* __set, siginfo_t* __info, const struct timespec* __timeout);
  
+ #if __ANDROID_API__ >= 28
+ int sigtimedwait64(const sigset64_t* __set, siginfo_t* __info, const struct timespec* __timeout) __INTRODUCED_IN(28);
+ #endif /* __ANDROID_API__ >= 28 */
+ 
+-
+-#if __ANDROID_API__ >= 23
+-int sigwaitinfo(const sigset_t* __set, siginfo_t* __info) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
++int sigwaitinfo(const sigset_t* __set, siginfo_t* __info);
+ 
+ #if __ANDROID_API__ >= 28
+ int sigwaitinfo64(const sigset64_t* __set, siginfo_t* __info) __INTRODUCED_IN(28);

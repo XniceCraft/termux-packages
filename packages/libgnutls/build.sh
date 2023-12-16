@@ -5,7 +5,7 @@ TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION="3.8.2"
 TERMUX_PKG_SRCURL=https://www.gnupg.org/ftp/gcrypt/gnutls/v${TERMUX_PKG_VERSION%.*}/gnutls-${TERMUX_PKG_VERSION}.tar.xz
 TERMUX_PKG_SHA256=e765e5016ffa9b9dd243e363a0460d577074444ee2491267db2e96c9c2adef77
-TERMUX_PKG_DEPENDS="libc++, libgmp, libnettle, ca-certificates, libidn2, libunbound, libunistring"
+TERMUX_PKG_DEPENDS="libandroid-support (>= 31), libc++, libgmp, libnettle, ca-certificates, libidn2, libunbound, libunistring"
 TERMUX_PKG_BREAKS="libgnutls-dev"
 TERMUX_PKG_REPLACES="libgnutls-dev"
 TERMUX_PKG_BUILD_IN_SRC=true

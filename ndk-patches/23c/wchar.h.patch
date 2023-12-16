@@ -1,0 +1,49 @@
+--- ./usr/include/wchar.h.orig	2023-12-14 19:43:39.520938885 -0500
++++ ./usr/include/wchar.h	2023-12-14 19:44:33.450962888 -0500
+@@ -90,9 +90,7 @@
+ size_t wcrtomb(char* __buf, wchar_t __wc, mbstate_t* __ps);
+ int wcscasecmp(const wchar_t* __lhs, const wchar_t* __rhs);
+ 
+-#if __ANDROID_API__ >= 23
+-int wcscasecmp_l(const wchar_t* __lhs, const wchar_t* __rhs, locale_t __l) __INTRODUCED_IN(23);
++int wcscasecmp_l(const wchar_t* __lhs, const wchar_t* __rhs, locale_t __l);
+-#endif /* __ANDROID_API__ >= 23 */
+ 
+ wchar_t* wcscat(wchar_t* __dst, const wchar_t* __src);
+ wchar_t* wcschr(const wchar_t* __s, wchar_t __wc);
+@@ -109,9 +107,7 @@
+ size_t wcslen(const wchar_t* __s);
+ int wcsncasecmp(const wchar_t* __lhs, const wchar_t* __rhs, size_t __n);
+ 
+-#if __ANDROID_API__ >= 23
+-int wcsncasecmp_l(const wchar_t* __lhs, const wchar_t* __rhs, size_t __n, locale_t __l) __INTRODUCED_IN(23);
++int wcsncasecmp_l(const wchar_t* __lhs, const wchar_t* __rhs, size_t __n, locale_t __l);
+-#endif /* __ANDROID_API__ >= 23 */
+ 
+ wchar_t* wcsncat(wchar_t* __dst, const wchar_t* __src, size_t __n);
+ int wcsncmp(const wchar_t* __lhs, const wchar_t* __rhs, size_t __n);
+@@ -174,11 +170,7 @@
+ int wmemcmp(const wchar_t* __lhs, const wchar_t* __rhs, size_t __n);
+ wchar_t* wmemcpy(wchar_t* __dst, const wchar_t* __src, size_t __n);
+ #if defined(__USE_GNU)
+-
+-#if __ANDROID_API__ >= 23
+-wchar_t* wmempcpy(wchar_t* __dst, const wchar_t* __src, size_t __n) __INTRODUCED_IN(23);
++wchar_t* wmempcpy(wchar_t* __dst, const wchar_t* __src, size_t __n);
+-#endif /* __ANDROID_API__ >= 23 */
+-
+ #endif
+ wchar_t* wmemmove(wchar_t* __dst, const wchar_t* __src, size_t __n);
+ wchar_t* wmemset(wchar_t* __dst, wchar_t __wc, size_t __n);
+@@ -200,10 +192,7 @@
+ size_t wcslcat(wchar_t* __dst, const wchar_t* __src, size_t __n);
+ size_t wcslcpy(wchar_t* __dst, const wchar_t* __src, size_t __n);
+ 
+-
+-#if __ANDROID_API__ >= 23
+-FILE* open_wmemstream(wchar_t** __ptr, size_t* __size_ptr) __INTRODUCED_IN(23);
++FILE* open_wmemstream(wchar_t** __ptr, size_t* __size_ptr);
+-#endif /* __ANDROID_API__ >= 23 */
+ 
+ wchar_t* wcsdup(const wchar_t* __s);
+ size_t wcsnlen(const wchar_t* __s, size_t __n);

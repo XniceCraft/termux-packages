@@ -1,0 +1,14 @@
+--- ./usr/include/malloc.h.orig	2023-12-15 00:41:20.974517897 -0500
++++ ./usr/include/malloc.h	2023-12-15 00:41:47.298024259 -0500
+@@ -71,10 +71,7 @@
+  * memory on success and returns a null pointer and sets `errno` on failure.
+  */
+ 
+-#if __ANDROID_API__ >= 29
+-void* reallocarray(void* __ptr, size_t __item_count, size_t __item_size) __BIONIC_ALLOC_SIZE(2, 3) __wur __INTRODUCED_IN(29);
+-#endif /* __ANDROID_API__ >= 29 */
+-
++void* reallocarray(void* __ptr, size_t __item_count, size_t __item_size) __BIONIC_ALLOC_SIZE(2, 3) __wur;
+ 
+ /**
+  * [free(3)](http://man7.org/linux/man-pages/man3/free.3.html) deallocates

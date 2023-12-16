@@ -5,7 +5,7 @@ TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.35
 TERMUX_PKG_SRCURL=https://mirrors.kernel.org/gnu/tar/tar-${TERMUX_PKG_VERSION}.tar.xz
 TERMUX_PKG_SHA256=4d62ff37342ec7aed748535323930c7cf94acf71c3591882b26a7ea50f3edc16
-TERMUX_PKG_DEPENDS="libandroid-glob, libiconv"
+TERMUX_PKG_DEPENDS="libandroid-support (>= 31), libandroid-glob, libiconv"
 TERMUX_PKG_ESSENTIAL=true
 
 # When cross-compiling configure guesses that d_ino in struct dirent only exists

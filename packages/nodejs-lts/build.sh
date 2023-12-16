@@ -9,7 +9,7 @@ TERMUX_PKG_SHA256=e8404f8c8d89fdfdf7e95bbbc6066bd0e571acba58f54492599b615fbeefe2
 # Note that we do not use a shared libuv to avoid an issue with the Android
 # linker, which does not use symbols of linked shared libraries when resolving
 # symbols on dlopen(). See https://github.com/termux/termux-packages/issues/462.
-TERMUX_PKG_DEPENDS="libandroid-support, libc++, openssl, c-ares, libicu, zlib"
+TERMUX_PKG_DEPENDS="libandroid-support (>= 31), libc++, openssl, c-ares, libicu, zlib"
 TERMUX_PKG_CONFLICTS="nodejs, nodejs-current"
 TERMUX_PKG_BREAKS="nodejs-dev"
 TERMUX_PKG_REPLACES="nodejs-current, nodejs-dev"

@@ -47,6 +47,42 @@
  
  FILE* fdopen(int __fd, const char* __mode);
  int fileno(FILE* __fp);
+@@ -321,12 +321,8 @@
+ int putc_unlocked(int __ch, FILE* __fp);
+ int putchar_unlocked(int __ch);
+ 
+-
+-#if __ANDROID_API__ >= 23
+-FILE* fmemopen(void* __buf, size_t __size, const char* __mode) __INTRODUCED_IN(23);
+-FILE* open_memstream(char** __ptr, size_t* __size_ptr) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
++FILE* fmemopen(void* __buf, size_t __size, const char* __mode);
++FILE* open_memstream(char** __ptr, size_t* __size_ptr);
+ 
+ #if defined(__USE_BSD) || defined(__BIONIC__) /* Historically bionic exposed these. */
+ int  asprintf(char** __s_ptr, const char* __fmt, ...) __printflike(2, 3);
+@@ -336,16 +332,10 @@
+ int setlinebuf(FILE* __fp);
+ int vasprintf(char** __s_ptr, const char* __fmt, va_list __args) __printflike(2, 0);
+ 
+-#if __ANDROID_API__ >= 23
+-void clearerr_unlocked(FILE* __fp) __INTRODUCED_IN(23);
+-int feof_unlocked(FILE* __fp) __INTRODUCED_IN(23);
+-int ferror_unlocked(FILE* __fp) __INTRODUCED_IN(23);
+-#endif /* __ANDROID_API__ >= 23 */
+-
+-
+-#if __ANDROID_API__ >= 24
+-int fileno_unlocked(FILE* __fp) __INTRODUCED_IN(24);
+-#endif /* __ANDROID_API__ >= 24 */
++void clearerr_unlocked(FILE* __fp);
++int feof_unlocked(FILE* __fp);
++int ferror_unlocked(FILE* __fp);
++int fileno_unlocked(FILE* __fp);
+ 
+ #define fropen(cookie, fn) funopen(cookie, fn, 0, 0, 0)
+ #define fwopen(cookie, fn) funopen(cookie, 0, fn, 0, 0)
 @@ -376,6 +380,30 @@
  #include <bits/fortify/stdio.h>
  #endif
