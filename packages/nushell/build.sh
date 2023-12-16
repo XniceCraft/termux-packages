@@ -2,9 +2,9 @@ TERMUX_PKG_HOMEPAGE=https://www.nushell.sh
 TERMUX_PKG_DESCRIPTION="A new type of shell operating on structured data"
 TERMUX_PKG_LICENSE="MIT"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION="0.87.1"
+TERMUX_PKG_VERSION="0.88.1"
 TERMUX_PKG_SRCURL=https://github.com/nushell/nushell/archive/$TERMUX_PKG_VERSION.tar.gz
-TERMUX_PKG_SHA256=92087ff56c98acb86dc14e9566748c0f470ad5f13277dd62bda878146535fa83
+TERMUX_PKG_SHA256=19f5a46799142117f61989a76f85fdd24361fe9e5068565d7fff36b91a7a7a39
 TERMUX_PKG_AUTO_UPDATE=true
 TERMUX_PKG_DEPENDS="openssl, zlib"
 TERMUX_PKG_BUILD_IN_SRC=true
@@ -26,7 +26,7 @@ termux_step_pre_configure() {
 		echo "INPUT(-l:libunwind.a)" >libgcc.so
 		popd
 	fi
-	if [ $TERMUX_ARCH != "arm" ]; then
+	if [ $TERMUX_ARCH != "i686" && $TERMUX_ARCH != "arm" ]; then
 		TERMUX_PKG_EXTRA_CONFIGURE_ARGS+=" --features=dataframe"
 	fi
 
