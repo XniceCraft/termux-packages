@@ -5,7 +5,7 @@ TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_VERSION=1.7.4
 TERMUX_PKG_SRCURL=https://dlcdn.apache.org/apr/apr-${TERMUX_PKG_VERSION}.tar.bz2
 TERMUX_PKG_SHA256=fc648de983f3a2a6c9e78dea1f180639bd2fad6c06d556d4367a701fe5c35577
-TERMUX_PKG_DEPENDS="libuuid"
+TERMUX_PKG_DEPENDS="libandroid-support (>= 31), libuuid"
 # libcrypt build-dependency is needed to build apache2.
 TERMUX_PKG_BUILD_DEPENDS="libcrypt"
 TERMUX_PKG_BREAKS="apr-dev"

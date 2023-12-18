@@ -1,0 +1,11 @@
+--- src/Makefile.in.orig	2023-12-16 18:57:30.216661251 -0500
++++ src/Makefile.in	2023-12-16 18:57:57.186169886 -0500
+@@ -28,7 +28,7 @@
+ 		  -I$(srcdir)/asm -I$(objdir)/asm \
+ 		  -I$(srcdir)/disasm -I$(objdir)/disasm \
+ 		  -I$(srcdir)/output -I$(objdir)/output
+-ALL_CFLAGS	= $(BUILD_CFLAGS) $(INTERNAL_CFLAGS)
++ALL_CFLAGS	= $(INTERNAL_CFLAGS) $(BUILD_CFLAGS)
+ LDFLAGS		= @LDFLAGS@
+ ALL_LDFLAGS     = $(ALL_CFLAGS) $(LDFLAGS)
+ LIBS		= @LIBS@

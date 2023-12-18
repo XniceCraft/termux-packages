@@ -105,13 +105,13 @@ termux_step_start_build() {
 			chmod u+x "$TERMUX_ELF_CLEANER"
 		fi
 
-		# Some packages search for libutil, libpthread and librt even
+		# Some packages search for libpthread and librt even
 		# though this functionality is provided by libc.  Provide
 		# library stubs so that such configure checks succeed.
 		mkdir -p "$TERMUX_PREFIX/lib"
-		for lib in libutil.so libpthread.so librt.so; do
+		for lib in libpthread.so librt.so; do
 			if [ ! -f $TERMUX_PREFIX/lib/$lib ]; then
-				echo 'INPUT(-lc)' > $TERMUX_PREFIX/lib/$lib
+				echo 'INPUT(-lc -landroid-support)' > $TERMUX_PREFIX/lib/$lib
 			fi
 		done
 	fi

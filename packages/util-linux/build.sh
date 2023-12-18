@@ -14,7 +14,7 @@ TERMUX_PKG_REVISION=3
 TERMUX_PKG_SRCURL=https://www.kernel.org/pub/linux/utils/util-linux/v${TERMUX_PKG_VERSION:0:4}/util-linux-${TERMUX_PKG_VERSION}.tar.xz
 TERMUX_PKG_SHA256=7b6605e48d1a49f43cc4b4cfc59f313d0dd5402fa40b96810bd572e167dfed0f
 # libcrypt is required for only newgrp and sulogin, which are not built anyways
-TERMUX_PKG_DEPENDS="libcap-ng, libsmartcols, ncurses, zlib, libandroid-support"
+TERMUX_PKG_DEPENDS="libandroid-support (>= 31), libcap-ng, libsmartcols, ncurses, zlib, libandroid-support"
 TERMUX_PKG_ESSENTIAL=true
 TERMUX_PKG_BREAKS="util-linux-dev"
 TERMUX_PKG_REPLACES="util-linux-dev"

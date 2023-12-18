@@ -7,7 +7,7 @@ TERMUX_PKG_SRCURL=https://mirrors.kernel.org/gnu/texinfo/texinfo-${TERMUX_PKG_VE
 TERMUX_PKG_SHA256=deeec9f19f159e046fdf8ad22231981806dac332cc372f1c763504ad82b30953
 TERMUX_PKG_AUTO_UPDATE=true
 # gawk is used by texindex:
-TERMUX_PKG_DEPENDS="libiconv, ncurses, perl, gawk"
+TERMUX_PKG_DEPENDS="libandroid-support (>= 31), libiconv, ncurses, perl, gawk"
 TERMUX_PKG_RECOMMENDS="update-info-dir"
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="texinfo_cv_sys_iconv_converts_euc_cn=no --disable-perl-xs"
 TERMUX_PKG_GROUPS="base-devel"

@@ -1,7 +1,7 @@
 termux_setup_toolchain_23c() {
 	export CFLAGS=""
 	if [[ "$TERMUX_ARCH" = "aarch64" ]]; then
-                CFLAGS+=" -march=armv8-a+simd+fp -mtune=cortex-a53 -mcpu=cortex-a53 -mlittle-endian -fassociative-math"
+                CFLAGS+=" -march=armv8-a+simd -mtune=cortex-a53 -mcpu=cortex-a53 -mlittle-endian -fassociative-math"
         fi
 	export CPPFLAGS=""
 	export LDFLAGS="-L${TERMUX_PREFIX}/lib -Wl,--no-undefined"

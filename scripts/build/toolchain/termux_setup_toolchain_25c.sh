@@ -4,7 +4,7 @@ termux_setup_toolchain_25c() {
         CFLAGS+=" -march=armv8-a+simd -mtune=cortex-a53 -mcpu=cortex-a53 -mlittle-endian -fassociative-math"
     fi
 	export CPPFLAGS=""
-	export LDFLAGS="-L${TERMUX_PREFIX}/lib -Wl,--no-undefined"
+    export LDFLAGS="-L${TERMUX_PREFIX}/lib -Wl,--no-undefined"
 #	export LDFLAGS="-L${TERMUX_PREFIX}/lib"
 
 	export AS=$TERMUX_HOST_PLATFORM-clang
