@@ -1,0 +1,27 @@
+--- src/openmp/runtime/src/kmp_i18n.cpp.orig	2023-12-18 13:32:09.306710648 +0700
++++ src/openmp/runtime/src/kmp_i18n.cpp	2023-12-18 13:34:49.986655606 +0700
+@@ -10,6 +10,13 @@
+ //
+ //===----------------------------------------------------------------------===//
+ 
++#if defined(__USE_GNU) || defined(_GNU_SOURCE)
++#undef _GNU_SOURCE
++#undef __USE_GNU
++
++#define __IS_GNU_DEF_ 1
++#endif
++
+ #include "kmp_i18n.h"
+ 
+ #include "kmp.h"
+@@ -874,3 +881,10 @@
+ } // __kmp_fatal
+ 
+ // end of file //
++
++#ifdef __IS_GNU_DEF_
++#undef __IS_GNU_DEF_
++
++#define _GNU_SOURCE 1
++#define __USE_GNU   1
++#endif

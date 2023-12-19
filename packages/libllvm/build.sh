@@ -15,7 +15,7 @@ lib/libgomp.a
 lib/libiomp5.a
 share/man/man1/lit.1
 "
-TERMUX_PKG_DEPENDS="libc++, libffi, libxml2, ncurses, zlib, zstd"
+TERMUX_PKG_DEPENDS="libandroid-support (>= 31), libc++, libffi, libxml2, ncurses, zlib, zstd"
 TERMUX_PKG_BUILD_DEPENDS="binutils-libs"
 # Replace gcc since gcc is deprecated by google on android and is not maintained upstream.
 # Conflict with clang versions earlier than 3.9.1-3 since they bundled llvm.
@@ -38,6 +38,7 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DCLANG_DEFAULT_LINKER=lld
 -DCLANG_INCLUDE_TESTS=OFF
 -DCLANG_TOOL_C_INDEX_TEST_BUILD=OFF
+-DCLANG_DEFAULT_LINKER=ld
 -DCOMPILER_RT_USE_BUILTINS_LIBRARY=ON
 -DDEFAULT_SYSROOT=$(dirname $TERMUX_PREFIX/)
 -DLLVM_LINK_LLVM_DYLIB=ON
