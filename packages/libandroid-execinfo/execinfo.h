@@ -45,9 +45,8 @@ __BEGIN_DECLS
  * than "size". If the return value is equal to "size" then the number of
  * addresses may have been truncated.
  *
- * Available since API level 24.
  */
-int backtrace(void** buffer, int size) __INTRODUCED_IN(24);
+int backtrace(void** buffer, int size);
 
 /**
  * [backtrace_symbols(3)](https://man7.org/linux/man-pages/man3/backtrace_symbols.3.html)
@@ -57,9 +56,8 @@ int backtrace(void** buffer, int size) __INTRODUCED_IN(24);
  * Returns a pointer to allocated memory, on error NULL is returned. It is
  * the responsibility of the caller to free the returned memory.
  *
- * Available since API level 24.
  */
-char** backtrace_symbols(void* const* buffer, int size) __INTRODUCED_IN(24);
+char** backtrace_symbols(void* const* buffer, int size);
 
 /**
  * [backtrace_symbols_fd(3)](https://man7.org/linux/man-pages/man3/backtrace_symbols_fd.3.html)
@@ -67,8 +65,7 @@ char** backtrace_symbols(void* const* buffer, int size) __INTRODUCED_IN(24);
  * of strings that represent the backtrace and write to the file represented
  * by "fd". The file is written such that one line equals one void* address.
  *
- * Available since API level 24.
  */
-void backtrace_symbols_fd(void* const* buffer, int size, int fd) __INTRODUCED_IN(24);
+void backtrace_symbols_fd(void* const* buffer, int size, int fd);
 
 __END_DECLS

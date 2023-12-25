@@ -8,7 +8,7 @@ TERMUX_PKG_LICENSE_FILE="LICENSE.txt, wcwidth-${TERMUX_PKG_VERSION[1]}/LICENSE.t
 TERMUX_PKG_MAINTAINER="@termux"
 TERMUX_PKG_SRCURL=(https://github.com/XniceCraft/libandroid-support/archive/refs/tags/v${TERMUX_PKG_VERSION[0]}.tar.gz
 		   https://github.com/termux/wcwidth/archive/v${TERMUX_PKG_VERSION[1]}.tar.gz)
-TERMUX_PKG_SHA256=(442cdb8a5a2963a8b02693132959a0da3543347a88493676640602ec0ec22d5d
+TERMUX_PKG_SHA256=(0f3691ceae15c89cd68ec961ef69d129c617acd0741c8fec3d5b7a97b42cdff2
 		   d38062a53edb2545b9988be41bd8d217f803fa985158b7cadf95d804761dd1f6)
 TERMUX_PKG_ESSENTIAL=true
 TERMUX_PKG_AUTO_UPDATE=false

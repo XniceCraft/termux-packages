@@ -12,7 +12,6 @@ TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 -DBUILD_SHARED_LIBS=ON
 -DLUA_BUILD_TYPE=System
 -DLUAJIT_INCLUDE_DIR=$TERMUX_PREFIX/include/luajit-2.1
--DLUA_PACKAGE_DIR=$TERMUX_PREFIX/lib/lua/5.1
 -DWITH_LUA_ENGINE=LuaJit
 -DWITH_SHARED_LIBUV=ON
 "
@@ -30,5 +29,5 @@ termux_step_post_get_source() {
 }
 
 termux_step_pre_configure() {
-	export LDFLAGS+=" -L$TERMUX_PREFIX/lib/lua/5.1"
+	export LDFLAGS+=" -lluajit"
 }
